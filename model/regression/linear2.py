@@ -1,6 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
-x_data = torch.rand([50,1]) * 9 + 1
+device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+x_data = (torch.rand([50,1]) * 9 + 1).to(device)
 y_truth = x_data * 3 + 0.8
 learning_rate= 0.01
 
@@ -15,7 +16,7 @@ class Linear(torch.nn.Module):
         return out
 
 # 实例化模型 损失函数 优化器
-model = Linear()
+model = Linear().to(device)
 criterion = torch.nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(),lr=1e-3)
 epoch = 30000
@@ -33,3 +34,4 @@ predict = predict.data.numpy()
 plt.scatter(x_data.data.numpy(),y_truth.data.numpy(),c='r')
 plt.plot(x_data.data.numpy(),predict)
 plt.show()
+
