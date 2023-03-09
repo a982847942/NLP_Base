@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import re
 import torch
-from load import ws,max_len
+from load import ws,max_len,batch_size
 
 
 def tokenlize(content):
@@ -42,7 +42,7 @@ def getDataloader(train=True):
     dataset = ImdbDataSet()
     # print(dataset[0][0])
     # print(dataset[0][1])
-    data_loader = DataLoader(dataset, batch_size=256, shuffle=True,collate_fn=collate_fn)
+    data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True,collate_fn=collate_fn)
     return data_loader
 
 
