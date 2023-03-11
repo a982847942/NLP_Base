@@ -24,3 +24,4 @@ print(c_1.size())#[num_layer * 单双,batch_size,hidden_szie]
 last_output = output[:,-1,:]
 last_hidden_state = h_1[-1,::]
 print(last_output == last_hidden_state)
+

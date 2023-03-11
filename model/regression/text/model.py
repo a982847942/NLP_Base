@@ -19,6 +19,7 @@ class model(nn.Module):
         #max_len是为了统一让输入的句子长度的向量表示一致
         # self.fc = nn.Linear(load.max_len*100,2)
         self.fc = nn.Linear(load.hidden_size * 2,2)
+
     def forward(self,x):
         x = self.embedding(x)#[batch_size,max_len,100]
         # x = x.view(-1,load.max_len * 100)
@@ -29,6 +30,7 @@ class model(nn.Module):
         output  = torch.cat([output_fw,output_bw],dim=-1)#[batch_size,hidden_size*2]
         out = self.fc(output)
         return F.log_softmax(out,dim=-1)
+
 
 mymodel = model().to(load.device)
 data_loader = getDataloader()
