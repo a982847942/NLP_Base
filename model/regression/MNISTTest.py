@@ -59,11 +59,15 @@ def train(epoch):
     # print(len(train_dataloader.dataset()))
     # print(len(train_dataloader))
     for index, (data, target) in enumerate(train_dataloader):
+
         optimizer.zero_grad()
         output = mnist_net(data)
+        print("target",target.size())
+        print('output',output.size())
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
+        break
         if index % 20 == 0:
             # print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss:{.6f}'.format(
             #     epoch,index * len(data),len(train_dataloader.dataset),
@@ -101,9 +105,9 @@ if __name__ == '__main__':
     # print(len(test_dataloader))
     # dataloader = getDataloader()
     # print(len(dataloader))
-    test()
-    # for i in range(5):
-    #     train(i)
+    # test()
+    for i in range(5):
+        train(i)
     # data_loader = getDataloader()
     # for i, (data, target) in enumerate(data_loader):
     #     print(data.size(0))
