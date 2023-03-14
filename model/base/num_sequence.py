@@ -35,5 +35,5 @@ class Num_sequence:
 if __name__ == '__main__':
     sequence = Num_sequence()
     print(sequence.dict)
-    print(sequence.transform(['0', '5', '4', '7']))
+    print(sequence.transform(['0', '5', '4', '7'],max_len=4))
     print(sequence.inverse_transform([2, 7, 6, 9, 1]))

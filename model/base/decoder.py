@@ -2,6 +2,7 @@ import config
 import torch.nn as nn
 import torch
 import torch.nn.functional as F
+import numpy as np
 
 
 class Decoder(nn.Module):
@@ -21,11 +22,18 @@ class Decoder(nn.Module):
         #保存每一步的结果作为预测
         decoder_outputs = torch.zeros([batch_size,config.max_len + 2,len(config.num_sequence)])
         for i in range(config.max_len + 2):
-            out_put, decoder_hidden = self.forward_step(decoder_input, encoder_hidden)
+            out_put, decoder_hidden = self.forward_step(decoder_input, decoder_hidden)
             #每一次结果都加入
-            decoder_outputs[:,i,:] = out_put
-            value, index = torch.topk(out_put, 1)
-            decoder_input = index
+            # print("target:",target.size())
+            decoder_outputs[:, i, :] = out_put
+            if np.random.random() > 0.5:
+                decoder_input = target[:,i].view(batch_size,-1)
+                # print("decoder_input:",decoder_input.size())
+            else:
+                value, index = torch.topk(out_put, 1)
+                # print("index:",index.size())
+                decoder_input = index
+            # decoder_input = torch.LongTensor(value)
         return decoder_outputs,decoder_hidden
 
     def forward_step(self, decoder_input, decoder_hidden):

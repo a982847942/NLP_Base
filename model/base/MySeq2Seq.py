@@ -11,6 +11,7 @@ class Seq2seq(nn.Module):
 
     def forward(self, input, target, input_length, target_length):
         encoder_outputs, encoder_hidden, _ = self.encoder(input, input_length)
+        # print("encoder：",encoder_outputs.size())
         decoder_outputs, decoder_hidden = self.decoder(target, encoder_hidden)
         return decoder_outputs, decoder_hidden
 
