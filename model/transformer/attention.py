@@ -56,5 +56,7 @@ class SelfAttention(nn.Module):
         return output
 
 
-model = SelfAttention(3, 5, 4)
-print(model(torch.Tensor(50, 5, 3)).size())
+#Wq和Wk的维度相同 都是batch_size,sequence_len,d_k(一般可取embedding_num)
+#Wv的维度是batch_size,sequence_len,d_v(该维度表示经过注意力机制之后更关注哪些子空间的内容。最后一个维度的rank)
+model = SelfAttention(20, 5, 4)
+print(model(torch.Tensor(50, 10, 20)).size())
